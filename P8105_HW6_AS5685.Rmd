@@ -27,3 +27,12 @@ scale_fill_discrete = scale_fill_viridis_d
 
 theme_set(theme_minimal() + theme(legend.position = "bottom"))
 ```
+
+
+### Load and Tidy data
+```{r}
+child_growth = read_csv("./Desktop/Data Science/hw6_as5685_p8105/data/birthweight.csv")
+
+
+```
+
