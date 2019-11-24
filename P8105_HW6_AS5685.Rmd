@@ -34,7 +34,7 @@ set.seed(1)
 
 
 ### Load in data
-```{r}
+```{r, message=FALSE}
 child_growth = read_csv("./data/birthweight.csv")
 skimr::skim(child_growth)
 ```
@@ -42,7 +42,7 @@ skimr::skim(child_growth)
 
 ### Tidy data
 
-```{r}
+```{r, message=FALSE}
 child_growth_clean = 
 child_growth %>% 
   mutate(
@@ -78,17 +78,23 @@ plots =
 child_growth_clean %>% 
   modelr::add_residuals(mymodel) %>% 
   modelr::add_predictions(mymodel) %>% 
-  ggplot(aes(x = pred, y =  resid)) + geom_violin()
+  ggplot(aes(x = pred, y =  resid)) + geom_point() + 
+  labs(
+    x = "prediction",
+    y = "residuals",
+    title =  "prediction and residuals"
+  )
+  
 
 ```
 
-I chose the potential factors that underly birthweight: `babysex`, `blength`, `delwt`, `fincome`, `gaweeks`. baby sex and baby's length will direcly influence the weight of newborns. family income will affect the mother's health condition, thereby cause the difference on newborns' weights. Also, less gastational age will lead to higher possibilities to lighter babies. 
+* I chose the potential factors that underly birthweight: `babysex`, `blength`, `delwt`, `fincome`, `gaweeks`. baby sex and baby's length will direcly influence the weight of newborns. family income will affect the mother's health condition, thereby cause the difference on newborns' weights. Also, less gastational age will lead to higher possibilities to lighter babies. 
 
 
 
 ### Comparison
 
-```{r}
+```{r, message=FALSE}
 cv_df = 
   crossv_mc(child_growth_clean, 100)
 
@@ -121,7 +127,10 @@ cv_df %>%
     values_to = "rmse", 
     names_prefix = "rmse_"
   ) %>% 
-  ggplot(aes(x = model, y = rmse)) + geom_violin()
+  ggplot(aes(x = model, y = rmse)) + geom_violin() +
+  labs(
+    title = "model comparison"
+  )
 
 
 ```
@@ -129,7 +138,7 @@ cv_df %>%
 ## Question 2
 
 ### load in data
-```{r}
+```{r, message=FALSE}
 weather_df = 
   rnoaa::meteo_pull_monitors(
     c("USW00094728"),
