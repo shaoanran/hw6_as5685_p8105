@@ -84,7 +84,7 @@ child_growth_clean %>%
     y = "residuals",
     title =  "prediction and residuals"
   )
-  
+plots
 
 ```
 
@@ -132,6 +132,8 @@ cv_df %>%
     title = "model comparison"
   )
 
+comparison_plot
+
 
 ```
 
@@ -178,6 +180,8 @@ plot_r =
   labs(
     title = "Distribution of r.squared"
   )
+
+plot_r
   
 
 log_df =
@@ -202,6 +206,7 @@ plot_log =
     labs(
       title = "Distribution of log(intercept*beta1)"
     )
+plot_log
 
 
 quantile(log_df$log, probs = c(0.025, 0.975))
